@@ -25,15 +25,15 @@ font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 const map = new mapboxgl.Map({
 container: 'map',
 style: 'mapbox://styles/mapbox/streets-v11',
-center: [-100.04, 38.907],
-zoom: 3
+center: [49.7, 114.88],
+zoom: 9
 });
 
 map.on('load', () => {
 // Add a source for the state polygons.
 map.addSource('states', {
 'type': 'geojson',
-'data': 'data.js'
+'data': 'wyattevodata.71cc6ydr'
 });
 
 // Add a layer showing the state polygons.
