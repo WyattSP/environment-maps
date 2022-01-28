@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Demo: Add points to a web map</title>
+    <title>Coal Deposits of Southeast BC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
     <link
@@ -33,22 +33,6 @@
         zoom: 5
       });
 
-      map.on('click', (event) => {
-        const features = map.queryRenderedFeatures(event.point, {
-          layers: ['test-coal']
-        });
-        if (!features.length) {
-          return;
-        }
-        const feature = features[0];
-
-        const popup = new mapboxgl.Popup({ offset: [0, -15] })
-          .setLngLat(feature.geometry.coordinates)
-          .setHTML(
-            `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
-          )
-          .addTo(map);
-      });
     </script>
   </body>
 </html>
