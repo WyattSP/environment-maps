@@ -31,9 +31,9 @@ zoom: 9
 
 map.on('load', () => {
 // Add a source for the state polygons.
-map.addSource('states', {
-'type': 'geojson',
-'data': 'wyattevodata.71cc6ydr'
+map.addSource('tileset_data', {
+'type': 'vector',
+'url': 'mapbox://wyattevodata.71cc6ydr'
 });
 
 // Add a layer showing the state polygons.
