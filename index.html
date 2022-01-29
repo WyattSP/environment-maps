@@ -32,6 +32,69 @@
 		    center: [-114.88574718739996,49.74030255352426], // starting position [lng, lat]
 		    zoom: 8 // starting zoom
 		});
+
+    map.on('load', () => {
+      map.loadImage(
+        'https://github.com/WyattSP/environment-maps/blob/main/mapbox-icon.png',
+        (error, image) => {
+          if (error) throw error;
+
+          //add the image to the map
+          map.addImage('custom-marker', image);
+
+          //add a data source
+          map.addSource('points', {
+            'type': 'geojson',
+            'data': {
+              'type': 'FeatureCollection',
+              'features': [
+                {
+                  'type': 'Feature',
+                  'geometry': {
+                    'type': 'Point',
+                    'coordinates': [
+                      -115.18177833412403,49.000127758365466
+                    ]
+                  },
+                  'properties': {
+                    'title': 'Lake Koocanusa'
+                  }
+                },
+                {
+                  'type': 'Feature',
+                  'geometry': {
+                    'type': 'Point',
+                    'coordinates': [
+                      -114.76966273335552,49.84785577758936
+                    ]
+                  },
+                  'properties': {
+                    'title': 'Grave Creek'
+                  }
+                }
+              ]
+            }
+          });
+
+          //add a layer to use the image to represent the data
+          map.addLayer({
+            'id': 'points',
+            'type': 'symbol',
+            'source': 'points',
+            'layout': {
+              'icon-image': 'custom_marker',
+              'text-field': ['get','title'],
+              'text-font': [
+                'Open Sans Semibold',
+                'Arial Unicode MS Bold'
+              ],
+              'text-offset': [0,1.25],
+              'text-anchor': 'top'
+            }
+          });
+        }
+      );
+    });
 		</script>
   </body>
 </html>
