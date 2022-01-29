@@ -36,17 +36,25 @@
 		});
 
     map.on('load', () => {
-      map.addSource('data', {
+      map.addSource('LakeK', {
         type: 'geojson',
-        data: 'https://github.com/WyattSP/environment-maps/blob/main/data.geojson'
+        data: { "type": "Feature",
+          "properties": { "id": "point" },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [-115.18094763285706,48.99961703612087]
+          }
+        }
       });
 
       map.addLayer({
-        'id': 'data',
-        'type': 'fill',
-        'source': 'data'
+        'id': 'point',
+        'type': 'Point',
+        'source': 'LakeK'
       });
     });
+
+
 		</script>
   </body>
 </html>
