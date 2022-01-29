@@ -2,8 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Coal Deposits of Southeast BC</title>
+    <title>Demo: Add custom markers in Mapbox GL JS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
     <link
       href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css"
@@ -20,81 +24,80 @@
         bottom: 0;
         width: 100%;
       }
+      .marker {
+        background-image: url('mapbox-icon.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      .mapboxgl-popup {
+        max-width: 200px;
+      }
+      .mapboxgl-popup-content {
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+      }
     </style>
   </head>
   <body>
-		<div id='map' ></div>
-		<script>
-		mapboxgl.accessToken = 'pk.eyJ1Ijoid3lhdHRldm9kYXRhIiwiYSI6ImNreXl2Z3FmbjB3Y3Iyb2xydHM2cnl1eHcifQ.g5Eijbwy7Kcbr7oyoUGMdg';
-		const map = new mapboxgl.Map({
-		    container: 'map', // container ID
-		    style: 'mapbox://styles/wyattevodata/ckz02y5dr002k14mvf4ool8t1', // style URL
-		    center: [-114.88574718739996,49.74030255352426], // starting position [lng, lat]
-		    zoom: 8 // starting zoom
-		});
+    <div id="map"></div>
 
-    map.on('load', () => {
-      map.loadImage(
-        'https://github.com/WyattSP/environment-maps/blob/main/mapbox-icon.png',
-        (error, image) => {
-          if (error) throw error;
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoid3lhdHRldm9kYXRhIiwiYSI6ImNreXl2Z3FmbjB3Y3Iyb2xydHM2cnl1eHcifQ.g5Eijbwy7Kcbr7oyoUGMdg';
+    const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/wyattevodata/ckz02y5dr002k14mvf4ool8t1', // style URL
+        center: [-114.88574718739996,49.74030255352426], // starting position [lng, lat]
+        zoom: 8 // starting zoom
+      )};
 
-          //add the image to the map
-          map.addImage('custom-marker', image);
-
-          //add a data source
-          map.addSource('points', {
-            'type': 'geojson',
-            'data': {
-              'type': 'FeatureCollection',
-              'features': [
-                {
-                  'type': 'Feature',
-                  'geometry': {
-                    'type': 'Point',
-                    'coordinates': [
-                      -115.18177833412403,49.000127758365466
-                    ]
-                  },
-                  'properties': {
-                    'title': 'Lake Koocanusa'
-                  }
-                },
-                {
-                  'type': 'Feature',
-                  'geometry': {
-                    'type': 'Point',
-                    'coordinates': [
-                      -114.76966273335552,49.84785577758936
-                    ]
-                  },
-                  'properties': {
-                    'title': 'Grave Creek'
-                  }
-                }
-              ]
+      const geojson = {
+        'type': 'FeatureCollection',
+        'features': [
+          {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [-115.18177833412403,49.000127758365466]
+            },
+            'properties': {
+              'title': 'Mapbox',
+              'description': 'Lake'
             }
-          });
-
-          //add a layer to use the image to represent the data
-          map.addLayer({
-            'id': 'points',
-            'type': 'symbol',
-            'source': 'points',
-            'layout': {
-              'icon-image': 'custom_marker',
-              'text-field': ['get','title'],
-              'text-font': [
-                'Open Sans Semibold',
-                'Arial Unicode MS Bold'
-              ],
-              'text-offset': [0,1.25],
-              'text-anchor': 'top'
+          },
+          {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [-114.76966273335552,49.84785577758936]
+            },
+            'properties': {
+              'title': 'Mapbox',
+              'description': 'Creek'
             }
-          });
-        }
-      );
-    });
-		</script>
+          }
+        ]
+      };
+
+      // add markers to map
+      for (const feature of geojson.features) {
+        // create a HTML element for each feature
+        const el = document.createElement('div');
+        el.className = 'marker';
+
+        // make a marker for each feature and add it to the map
+        new mapboxgl.Marker(el)
+          .setLngLat(feature.geometry.coordinates)
+          .setPopup(
+            new mapboxgl.Popup({ offset: 25 }) // add popups
+              .setHTML(
+                `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+              )
+          )
+          .addTo(map);
+      }
+    </script>
   </body>
 </html>
