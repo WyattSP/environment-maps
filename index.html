@@ -35,7 +35,7 @@
 
     map.on('load', () => {
       map.loadImage(
-        '../mapbox-icon.png',
+        'https://github.com/WyattSP/environment-maps/blob/main/mapbox-icon.png',
         (error, image) => {
           if (error) throw error;
 
@@ -58,18 +58,6 @@
                   },
                   'properties': {
                     'title': 'Lake Koocanusa'
-                  }
-                },
-                {
-                  'type': 'Feature',
-                  'geometry': {
-                    'type': 'Point',
-                    'coordinates': [
-                      -114.76966273335552,49.84785577758936
-                    ]
-                  },
-                  'properties': {
-                    'title': 'Grave Creek'
                   }
                 }
               ]
