@@ -29461,6 +29461,17 @@ map.addSource('LakeK', {
   }
 });
 
+// Markers with text. Create custom symbols next.
+const marker1 = new mapboxgl.Marker()
+  .setLngLat([-114.81194347876743,49.83055637764548])
+  .setPopup(new mapboxgl.Popup().setHTML("<strong>Grave and Harmer Creek WCT Collapse</strong>"))
+  .addTo(map);
+
+const marker2 = new mapboxgl.Marker({ color: 'black'})
+  .setLngLat([-114.84094514682022,50.12388679134247])
+  .setPopup(new mapboxgl.Popup().setHTML("<strong>Upper Fording River WCT Collapse</strong>"))
+  .addTo(map);
+
 // Add a new layer to visualize the polygon.
 map.addLayer({
 'id': 'Coal Deposits',
