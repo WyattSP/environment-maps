@@ -13,6 +13,7 @@ body { margin: 0; padding: 0; }
 </head>
 <body>
 
+// Toggle layer menu in top right of screen
 <style>
 #menu {
   background: #fff;
@@ -56,10 +57,24 @@ body { margin: 0; padding: 0; }
   background: #3074a4;
   }
 </style>
+
+// Popup window on click
 <style>
-.mapboxgl-popup {
-  max-width: 400px;
-  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+.mapboxgl-popup{
+    transform:none !important;
+     top: 5%;
+    left: 10px;
+}
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-center .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip{
+    display:none !important;
 }
 </style>
 
