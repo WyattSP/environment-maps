@@ -93,7 +93,7 @@ body { margin: 0; padding: 0; }
   background: #fff;
   position: absolute;
   z-index: 1;
-  top: 10px;
+  top: 40px;
   right: 10px;
   border-radius: 3px;
   width: 120px;
@@ -123,12 +123,12 @@ body { margin: 0; padding: 0; }
   }
 
 #menu a.active {
-  background-color: #3887be;
-  color: #ffffff;
+  background-color: #FFFFFF;
+  color: #000000;
   }
 
 #menu a.active:hover {
-  background: #3074a4;
+  background: #D3D3D3;
   }
 </style>
 
@@ -145,7 +145,7 @@ body { margin: 0; padding: 0; }
 <div id="map">
   <div id="left" class="sidebar flex-center left collapsed">
     <div class="sidebar-content rounded-rect flex-center">
-      Left Sidebar
+      Main Info
       <div class="sidebar-toggle rounded-rect left" onclick="toggleSidebar('left')">
         &rarr;
       </div>
@@ -153,7 +153,7 @@ body { margin: 0; padding: 0; }
   </div>
   <div id="right" class="sidebar flex-center right collapsed">
     <div class="sidebar-content rounded-rect flex-center">
-      Right Sidebar
+      Additional Info
       <div class="sidebar-toggle rounded-rect right" onclick="toggleSidebar('right')">
         &larr;
       </div>
@@ -177,7 +177,7 @@ map.addControl(new mapboxgl.FullscreenControl());
 map.on('load', () => {
   toggleSidebar('left');
 // Add a data source containing GeoJSON data.
-  map.addSource('coal', {
+map.addSource('coal', {
     'type': 'geojson',
     'data': {
       'type': 'Feature',
