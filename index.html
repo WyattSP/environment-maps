@@ -29455,15 +29455,163 @@ map.addSource('LakeK', {
   }
 });
 
-const marker1 = new mapboxgl.Marker()
-  .setLngLat([-114.81194347876743,49.83055637764548])
-  .setPopup(new mapboxgl.Popup().setHTML("<strong>Grave and Harmer Creek WCT Collapse</strong>"))
-  .addTo(map);
+map.addSource('fish', {
+  "type": 'geojson',
+  "data": {
+    'type': 'FeatureCollection',
+    'features': [
+      {
+        'type': 'Feature',
+        'properties': {
+          'description':
+          '<strong>Fording River Population Collapse</strong>'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [-114.81156354821397, 50.09491681161279]
+        }
+      },
+      {
+        'type': 'Feature',
+        'properties': {
+          'description':
+          '<strong>Grave and Harmer Creek Population Collapse</strong>'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [-114.8208359713988, 49.83336469038426]
+        }
+      },
+      {
+        'type': 'Feature',
+        'properties': {
+          'description':
+          '<strong>Tenmile, North Point Jackson Fish Tissue Exceedance</strong>'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [-115.3103076,48.468669]
+        }
+      },
+      {
+        'type': 'Feature',
+        'properties': {
+          'description':
+          '<strong>Lake Koocanusa Fish Tissue Exceedance</strong>'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [-115.29062,48.47691]
+        }
+      },
+      {
+        'type': 'Feature',
+        'properties': {
+          'description':
+          '<strong>Rexford Fish Tissue Exceedance</strong>'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [-115.1598875,48.990084]
+        }
+      },
+      {
+        'type': 'Feature',
+        'properties': {
+          'description':
+          '<strong>Kikomun Fish Tissue Exceedance</strong>'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [-115.24,49.22]
+        }
+      },
+      {
+        'type': 'Feature',
+        'properties': {
+          'description':
+          '<strong>Kootenai River near Troy MT Fish Tissue Exceedance</strong>'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [-115.887485,48.470135]
+        }
+      },
+      {
+        'type': 'Feature',
+        'properties': {
+          'description':
+          '<strong>ID/MT Fish Tissue Exceedance</strong>'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [-116.19775, 4869933]
+        }
+      }
+    ]
+  }
+  });
 
-const marker2 = new mapboxgl.Marker({ color: 'black'})
-  .setLngLat([-114.84094514682022,50.12388679134247])
-  .setPopup(new mapboxgl.Popup().setHTML("<strong>Upper Fording River WCT Collapse</strong>"))
-  .addTo(map);
+map.addSource('water', {
+  "type": "geojson",
+  "data": {
+    'type': 'FeatureCollection',
+    'features': [
+      {
+        'type': 'Feature',
+        'properties': {
+          'description':
+          '<strong>BC08NK003</strong>'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [-115.11,49.21]
+        }
+      },
+      {
+        'type': 'Feature',
+        'properties': {
+          'description':
+          '<strong>BC08NK004</strong>'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [-114.9,49.67]
+        }
+      }
+    ]
+  }
+  });
+
+map.addLayer({
+'id': 'Water Effects',
+'type': 'circle',
+'source': 'water',
+'layout': {
+// Make the layer visible by default.
+'visibility': 'visible'
+},
+'paint': {
+'circle-radius': 8,
+'circle-color': 'rgba(0,140,255,1)',
+'circle-opacity': 1
+}
+});
+
+map.addLayer({
+'id': 'Aquatic Effects',
+'type': 'circle',
+'source': 'fish',
+'layout': {
+// Make the layer visible by default.
+'visibility': 'visible'
+},
+'paint': {
+'circle-radius': 8,
+'circle-color': 'rgba(11,156,49,0.6)',
+'circle-opacity': 1
+}
+});
 
 // Add a new layer to visualize the polygon.
 map.addLayer({
@@ -29530,7 +29678,7 @@ map.addLayer({
     'fill-color': '#f92424',
     'fill-opacity': 0.5
   }
-});
+},'Aquatic Effects');
 
 map.addLayer({
   'id': 'Lake Koocanusa',
@@ -29541,7 +29689,7 @@ map.addLayer({
     'fill-color': '#75cff0',
     'fill-opacity': 1
   }
-});
+},'Aquatic Effects','Water Effects');
 
 });
 map.on('idle', () => {
@@ -29551,7 +29699,7 @@ return;
 }
 
 // Enumerate ids of the layers.
-const toggleableLayerIds = ['Coal Deposits','Fording River Expansion','Fording','Line Creek','Elkview','Coal Mtn'];
+const toggleableLayerIds = ['Coal Deposits','Fording River Expansion','Fording','Line Creek','Elkview','Coal Mtn','Aquatic Effects','Water Effects'];
 
 // Set up the corresponding toggle button for each layer.
 for (const id of toggleableLayerIds) {
@@ -29597,7 +29745,7 @@ layers.appendChild(link);
 }
 });
 
-map.on('click', ['Fording River Expansion','Coal Deposits','Lake Koocanusa','Fording','Line Creek','Elkview','Coal Mtn'], (e) => {
+map.on('click', ['Fording River Expansion','Coal Deposits','Lake Koocanusa','Fording','Line Creek','Elkview','Coal Mtn','Aquatic Effects','Water Effects'], (e) => {
 new mapboxgl.Popup()
 .setLngLat(e.lngLat)
 .setHTML(e.features[0].properties.description)
@@ -29606,13 +29754,13 @@ new mapboxgl.Popup()
 
 // Change the cursor to a pointer when
 // the mouse is over the states layer.
-map.on('mouseenter', ['Fording River Expansion','Coal Deposits','Lake Koocanusa','Fording','Line Creek','Elkview','Coal Mtn'], () => {
+map.on('mouseenter', ['Fording River Expansion','Coal Deposits','Lake Koocanusa','Fording','Line Creek','Elkview','Coal Mtn','Aquatic Effects','Water Effects'], () => {
 map.getCanvas().style.cursor = 'pointer';
 });
 
 // Change the cursor back to a pointer
 // when it leaves the states layer.
-map.on('mouseleave', ['Fording River Expansion','Coal Deposits','Lake Koocanusa','Fording','Line Creek','Elkview','Coal Mtn'], () => {
+map.on('mouseleave', ['Fording River Expansion','Coal Deposits','Lake Koocanusa','Fording','Line Creek','Elkview','Coal Mtn','Aquatic Effects','Water Effects'], () => {
 map.getCanvas().style.cursor = '';
 
 });
