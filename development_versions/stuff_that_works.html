@@ -22,44 +22,42 @@ body { margin: 0; padding: 0; }
 
   .flex-center {
   position: absolute;
-  display: flex;
+  display: inline-block;
   justify-content: center;
   align-items: center;
+  line-height: 1;
   }
 
   .flex-center.left {
-  left: 0px;
-  }
-
-  .flex-center.right {
-  right: 0px;
+    left: 10px;
+    top: 10px;
   }
 
   .sidebar-content {
   position: absolute;
-  width: 95%;
+  width: 91%;
   height: 95%;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 32px;
   color: gray;
+  padding-left: 10px;
+  padding-top: 10px;
   }
 
   .sidebar-toggle {
-  position: absolute;
+  position: fixed;
   width: 1.3em;
   height: 1.3em;
   overflow: visible;
   display: flex;
   justify-content: center;
   align-items: center;
+  left: 300px;
+  bottom: 50%;
   }
 
   .sidebar-toggle.left {
-  right: -1.5em;
-  }
-
-  .sidebar-toggle.right {
-  left: -1.5em;
+  right: -1.68em;
   }
 
   .sidebar-toggle:hover {
@@ -79,12 +77,14 @@ body { margin: 0; padding: 0; }
   The toggleSidebar() function removes this class from the element in order to expand it.
   */
   .left.collapsed {
-  transform: translateX(-295px);
+  transform: translateX(-300px);
   }
 
-  .right.collapsed {
-  transform: translateX(295px);
-  }
+  p {
+      color: black;
+      font-size: 20px;
+    }
+
 </style>
 
 // Toggle layer menu in top right of screen
@@ -93,12 +93,12 @@ body { margin: 0; padding: 0; }
   background: #fff;
   position: absolute;
   z-index: 1;
-  top: 50px;
+  top: 10px;
   right: 10px;
   border-radius: 3px;
   width: 120px;
   border: 1px solid rgba(0, 0, 0, 0.4);
-  font-family: 'Open Sans', sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   }
 
 #menu a {
@@ -114,22 +114,22 @@ body { margin: 0; padding: 0; }
   }
 
 #menu a:last-child {
-  border: none;
-  }
+    border: none;
+    }
 
 #menu a:hover {
-  background-color: #f8f8f8;
-  color: #404040;
-  }
+    background-color: #f8f8f8;
+    color: #404040;
+    }
 
 #menu a.active {
-  background-color: #3887be;
-  color: #ffffff;
-  }
+    background-color: #FFFFFF;
+    color: #000000;
+    }
 
 #menu a.active:hover {
-  background: #3074a4;
-  }
+    background: #D3D3D3;
+    }
 </style>
 
 // Popup window on click
@@ -145,21 +145,14 @@ body { margin: 0; padding: 0; }
 <div id="map">
   <div id="left" class="sidebar flex-center left collapsed">
     <div class="sidebar-content rounded-rect flex-center">
-      Left Sidebar
+      <strong>Coal Mining Cumulative Effects in the Elk Valley</strong>
+      <p>Explore the map to learn more information.</p>
+      <a href="www.wildsight.ca">Find us here!</a>
       <div class="sidebar-toggle rounded-rect left" onclick="toggleSidebar('left')">
         &rarr;
       </div>
     </div>
   </div>
-  <div id="right" class="sidebar flex-center right collapsed">
-    <div class="sidebar-content rounded-rect flex-center">
-      Right Sidebar
-      <div class="sidebar-toggle rounded-rect right" onclick="toggleSidebar('right')">
-        &larr;
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <script>
@@ -170,8 +163,9 @@ style: 'mapbox://styles/wyattevodata/ckz0gm4sl000n15ouq2mtzfwa', // style URL
 center: [-114.88574718739996,49.74030255352426], // starting position
 zoom: 8 // starting zoom
 });
+
 // Full Screen control
-map.addControl(new mapboxgl.FullscreenControl());
+//map.addControl(new mapboxgl.FullscreenControl());
 
 // Load layers
 map.on('load', () => {
