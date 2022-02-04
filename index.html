@@ -31380,6 +31380,7 @@ layers.appendChild(link);
 map.on('click', ['Coal Deposits','Active Coal Mines','Proposed Mines','Fording River Expansion','Aquatic Effects','Water Pollution'], (e) => {
 new mapboxgl.Popup()
 .setLngLat(e.lngLat)
+.setMaxWidth("400px")
 .setHTML(e.features[0].properties.description)
 .addTo(map);
 });
